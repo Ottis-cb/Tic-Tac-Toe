@@ -174,4 +174,22 @@ h2 {
 .buttons button:hover {
     transform: translateY(-2px);
 }
-
+#NouvellePartie {
+    background: #3B82F6;
+    color: white;
+    box-shadow: 0 2px 10px rgba(59, 130, 246, 0.25);
+}
+#NouvellePartie:hover {
+    background: #2563eb;
+    transform: translateY(-2px);
+}
+.btn-o {
+    background: white;
+    border: 1px solid #cbd5e1;
+    color: #334155;
+    box-shadow: 0 2px 10px rgba(59, 130, 246, 0.25);
+}
+.btn-o:hover {
+    background: #f1f5f9;
+    transform: translateY(-2px);
+}
