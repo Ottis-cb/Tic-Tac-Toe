@@ -40,6 +40,7 @@ function nombreCasesRemplies(){
         }
     }
     return compteur;
+}
 
 
 function afficherScore(){
@@ -48,7 +49,6 @@ function afficherScore(){
 
     scoreJoueur.textContent = joeur.score;
     scoreCpu.textContent = cpu.score;
-}
 }
 
 
@@ -64,9 +64,9 @@ function quigagne(joueurATester) {
         cases[b].textContent === joueurATester.symbole &&
         cases[c].textContent === joueurATester.symbole
     ){
-        cases[a].computedStyleMap.color= "green";
-        cases[B].computedStyleMap.color= "green";
-        cases[C].computedStyleMap.color= "green";
+        cases[a].style.color= "green";
+        cases[b].style.color= "green";
+        cases[c].style.color= "green";
         return true;
     }
     return false;
