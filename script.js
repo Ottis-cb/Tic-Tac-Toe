@@ -98,11 +98,11 @@ function matchNul() {
     afficherScore();
     choixplayer.innerHTML = "Match Nul!!";
 }
+    let Touraffiche = document.getElementById("TourAffiche");
 
 //Faire jouer le joueur
 function joueurCase(id){
     let caseCliquee = document.getElementById(id);
-    let Touraffiche = document.getElementById("TourAffiche");
     Touraffiche.style.color="#ef4444";
     Touraffiche.textContent= "C'est le tour du joueur " + cpu.symbole;
     if(partieTerminee || !auJoueurDeJouer || caseCliquee.classList.contains("coche")){
@@ -125,7 +125,6 @@ function joueurCase(id){
 
 //Faire jouer le cpu
 function joueurCpu(){
-    let Touraffiche = document.getElementById("TourAffiche");
     Touraffiche.style.color="#2563eb";
     Touraffiche.textContent= "C'est le tour du joueur " + joueur.symbole;
     let casesLibres = [];
@@ -157,6 +156,22 @@ for(let i=0; i<cases.length; i++){
     });
 }
 
+//Pour afficher des messages après chaque clic du bouton recommencer
+const messages = [
+    "Montre au CPU qui est le patron!😎",
+    "Pret pour la revanche?🤔",
+    "Prouve que tu es le champion💪",
+    "Une revanche ou une nouvelle défaite?🤭",
+    "La victoire t'appelle😎"
+]
+let i=0;
+function afficherMessageRevanche(){
+    Touraffiche.textContent= messages[i];
+    i++;
+    if(i=== messages.length){
+        i=0;
+    }
+}
 
 // Pour recommencer le jeu(Revanche)
 function Recommencer(){
@@ -165,12 +180,12 @@ function Recommencer(){
         cases[i].classList.remove("coche");
         cases[i].classList.remove("winner");
         cases[i].style.color ="";
-
     }
     choixplayer.style.opacity=0;
     choixplayer.style.visibility="hidden";
     partieTerminee = false;
     auJoueurDeJouer = true;
+    afficherMessageRevanche();
 }
 
 const recommencerBtn = document.getElementById("Recommencer");
