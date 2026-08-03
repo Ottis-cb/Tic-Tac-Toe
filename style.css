@@ -79,7 +79,8 @@ h2 {
     background: linear-gradient(180deg, #d6e3fa, #eef4ff);
     padding: 50px;
     border-radius: 15px;
-    animation: zoom 2.1s ease;
+    animation: zoom 2.1s forwards;
+    animation-delay: 1s;
 }
 @keyframes zoom {
     from{
