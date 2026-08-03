@@ -5,13 +5,13 @@
 * {
     margin: 0;
     padding: 0;
-    transition: .4s ease;
+    box-sizing: border-box;
 }
 body {
     box-sizing: border-box;
     margin: 0 auto;
     text-align: center;
-    background: linear-gradient(180deg, #ffff, #eef4ff);
+    background: linear-gradient(180deg, #f8fbff, #eef5ff,#dbeafe);
     height: 100vh;
     font-family: "Inter",sans-serif;
 }
@@ -21,12 +21,14 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 400px;
-    background: white;
-    padding: 30px;
-    border-radius: 28px;
-    border: 2px solid #e2e8f0;
-    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.6);
+    width: min(420px, 90vw);
+    background: rgba(255, 255, 255, .95);
+    padding: 35px;
+    border-radius: 30px;
+    border: 1px solid #dbeafe;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8),
+    0 20px 50px rgba(59, 130, 246, 0.15);
+    /*min-height: 100vh;*/
 }
 h1 {
     color: #0f172a;
@@ -42,16 +44,15 @@ h2 {
     font-size: 29px;
 }
 .score {
-    width: 74%;
     display: flex;
     justify-content: space-between;
     margin: 10px auto;
     gap: 20%;
     padding: 18px;
-    border-radius: 18px;
-    border: 1px solid #bfdbfe;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    border: none;
     font-size: 25px;
-    background: #eff6ff;
+    background: #f8fbff;
 }
 .score-you p:nth-child(2){
     color: #3b82f6;
@@ -134,17 +135,54 @@ h2 {
     grid-template-columns: repeat(3, 100px);
     justify-content: center;
     margin: 30px auto;
+    gap: 8px;
 }
 .tableau .case {
     height: 100px;
-    border: 2px solid #cbd5e1;
+    background: white;
+    border: none;
+    border-radius: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 65px;
+    font-weight: 800;
     cursor: pointer;
-    text-align: center;
-    font-size: 80px;
-    font-weight: 700;
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.8);
+    transition: .25s;
 }
+
 .tableau .case:hover {
     background: #eff6ff;
+    transform: translateY(-4px);
+    box-shadow: 0 12px 25px rgba(59, 130, 246, 0.25);
+}
+.tableau .case.coche {
+    animation: pop .2s ease;
+}
+@keyframes pop {
+    from{
+        transform: scale(.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+.tableau .case.winner {
+    background: #dcfce7;
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.5);
+    animation: winner .8s infinite alternate;
+}
+
+@keyframes winner {
+    from{
+        transform: scale(1);
+    }
+    to{
+        transform: scale(1.05);
+    }
 }
 .tour {
     font-size: 20px;
@@ -163,15 +201,20 @@ h2 {
     gap: 4%;
 }
 .buttons button {
-    padding: 13px;
-    width: 37%;
-    border-radius: 20px;
+    padding: 14px;
+    border-radius: 15px;
     border: none;
     font-weight: 900;
-    font-size: 13px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: .2s;
+    font-weight: 700;
 }
 .buttons button:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+}
+.buttons button:active{
+    transform: scale(.95);
 }
 #NouvellePartie {
     background: #3B82F6;

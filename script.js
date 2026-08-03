@@ -32,6 +32,11 @@ const combinaisonGagnantes = [
 function remplirCase(caseIndex, symbole) {
     caseIndex.textContent = symbole;
     caseIndex.classList.add("coche");
+    if(symbole==="X"){
+        caseIndex.style.color="#2563eb";
+    }else{
+        caseIndex.style.color="#ef4444";
+    }
 }
 
 //Nombres de cases Remplis
@@ -69,9 +74,9 @@ function quigagne(joueurATester) {
         cases[b].textContent === joueurATester.symbole &&
         cases[c].textContent === joueurATester.symbole
     ){
-        cases[a].style.color= "green";
-        cases[b].style.color= "green";
-        cases[c].style.color= "green";
+        cases[a].classList.add("winner");
+        cases[b].classList.add("winner");
+        cases[c].classList.add("winner");
         choixplayer.style.opacity=1;
         choixplayer.style.visibility="visible";
         return true;
@@ -98,7 +103,8 @@ function matchNul() {
 function joueurCase(id){
     let caseCliquee = document.getElementById(id);
     let Touraffiche = document.getElementById("TourAffiche");
-    Touraffiche.textContent= "O";
+    Touraffiche.style.color="#ef4444";
+    Touraffiche.textContent= "C'est le tour du joueur " + cpu.symbole;
     if(partieTerminee || !auJoueurDeJouer || caseCliquee.classList.contains("coche")){
         return;
     }
@@ -113,13 +119,15 @@ function joueurCase(id){
         return;
     }
     auJoueurDeJouer = false;
-    joueurCpu();
+    //Pour que le cpu attends 0.6s avant de jouer
+    setTimeout(joueurCpu, 600);
 }
 
 //Faire jouer le cpu
 function joueurCpu(){
     let Touraffiche = document.getElementById("TourAffiche");
-    Touraffiche.textContent= "X";
+    Touraffiche.style.color="#2563eb";
+    Touraffiche.textContent= "C'est le tour du joueur " + joueur.symbole;
     let casesLibres = [];
     for(let i=0; i<cases.length; i++){
         if(!cases[i].classList.contains("coche")){
@@ -155,7 +163,9 @@ function Recommencer(){
     for(let i= 0; i<cases.length; i++){
         cases[i].textContent="";
         cases[i].classList.remove("coche");
+        cases[i].classList.remove("winner");
         cases[i].style.color ="";
+
     }
     choixplayer.style.opacity=0;
     choixplayer.style.visibility="hidden";
@@ -167,6 +177,16 @@ const recommencerBtn = document.getElementById("Recommencer");
 
 recommencerBtn.addEventListener("click", function(){
     Recommencer();
+});
+
+//Pour faire une nouvelle Partie
+function NouvellePartie(){
+    location.reload();
+}
+
+const NouvellePartieBtn = document.getElementById("NouvellePartie");
+NouvellePartieBtn.addEventListener("click",function(){
+NouvellePartie();
 });
 
 //Choisir le symbole de chaque joueur
