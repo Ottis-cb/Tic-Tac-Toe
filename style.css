@@ -14,6 +14,7 @@ body {
     background: linear-gradient(180deg, #f8fbff, #eef5ff,#dbeafe);
     height: 100vh;
     font-family: "Inter",sans-serif;
+    transition: .5s;
 }
 
 .container {
@@ -23,12 +24,20 @@ body {
     transform: translate(-50%, -50%);
     width: min(420px, 90vw);
     background: rgba(255, 255, 255, .95);
-    padding: 35px;
+    padding: 50px 35px 15px 35px;
     border-radius: 30px;
     border: 1px solid #dbeafe;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8),
     0 20px 50px rgba(59, 130, 246, 0.15);
     /*min-height: 100vh;*/
+}
+.mode {
+    padding: 10px 8px;
+    position: absolute;
+    top: 10px;
+    right: 35px;
+    border-radius: 10px;
+    border: none;
 }
 h1 {
     color: #0f172a;
@@ -235,3 +244,57 @@ h2 {
     background: #f1f5f9;
     transform: translateY(-2px);
 }
+
+.dark {
+    background: radial-gradient(circle at top, #1e3a8a,#020617);
+    color: #f8fafc;
+    transition: .5s;
+}
+.dark h1 {
+    color: #f8fafc;
+}
+.dark h1 span {
+    color: #38bdf8;
+}
+.dark .score {
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #f8fafc;
+}
+.dark .choix {
+    background: radial-gradient(circle at top, #1e3a8a,#020617);
+        
+}
+.dark .container {
+    background: #111827;
+    padding: 50px 35px 15px 35px;
+    border-radius: 30px;
+    border: 1px solid #334155;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    /*min-height: 100vh;*/
+}
+.dark .case {
+    background: #1e293b;
+    border: none;
+    color: #f8fafc;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+.dark .case:hover {
+    background: #334155;
+    box-shadow: 0 0 20px rgba(56, 189, 248, .4);
+}
+
+.dark .case.winner {
+    box-shadow: 0 0 25px #22c55e;
+}
+
+.dark .x-btn,#NouvellePartie {
+    background: #2563eb;
+    color: white;
+}
+.dark .x-btn,#NouvellePartie:hover {
+    background: #3b82f6;
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
+}
+
+

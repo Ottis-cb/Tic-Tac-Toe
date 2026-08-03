@@ -99,12 +99,13 @@ function matchNul() {
     choixplayer.innerHTML = "Match Nul!!";
 }
     let Touraffiche = document.getElementById("TourAffiche");
-
+    let msgsymbole = document.getElementById("Msgsymbole");
 //Faire jouer le joueur
 function joueurCase(id){
     let caseCliquee = document.getElementById(id);
-    Touraffiche.style.color="#ef4444";
-    Touraffiche.textContent= "C'est le tour du joueur " + cpu.symbole;
+    Touraffiche.textContent= "C'est le tour du joueur ";
+    msgsymbole.style.color="#ef4444";
+    msgsymbole.textContent = cpu.symbole;
     if(partieTerminee || !auJoueurDeJouer || caseCliquee.classList.contains("coche")){
         return;
     }
@@ -125,8 +126,10 @@ function joueurCase(id){
 
 //Faire jouer le cpu
 function joueurCpu(){
-    Touraffiche.style.color="#2563eb";
-    Touraffiche.textContent= "C'est le tour du joueur " + joueur.symbole;
+    Touraffiche.textContent= "C'est le tour du joueur ";
+    msgsymbole.style.color="#2563eb";
+    msgsymbole.textContent = joueur.symbole;
+
     let casesLibres = [];
     for(let i=0; i<cases.length; i++){
         if(!cases[i].classList.contains("coche")){
@@ -225,4 +228,15 @@ choixsymboleX.addEventListener("click", function(){
 });
 choixsymboleO.addEventListener("click", function(){
     choixSymboleY();
+});
+
+//Pour le mode claie et sombre
+const mode =document.querySelector(".mode");
+mode.addEventListener("click", function(){
+    document.body.classList.toggle('dark');
+    if(document.body.classList.contains("dark")){
+        mode.textContent="🌞";
+    }else{
+        mode.textContent="🌙";
+    }
 });
