@@ -1,4 +1,4 @@
-//JOueurs
+//Joueurs
 let joueur = {
     nom: "Ottis",
     symbole: "O",
@@ -15,7 +15,8 @@ let auJoueurDeJouer = true;
 
 const cases = document.getElementsByClassName("case");
 
-const combinaisonGagnates = [
+//Combinaison Gagnantes
+const combinaisonGagnantes = [
     [0,1,2],
     [3,4,5],
     [6,7,8],
@@ -27,11 +28,13 @@ const combinaisonGagnates = [
 ]
 ;
 
-
+//Remplir cases
 function remplirCase(caseIndex, symbole) {
     caseIndex.textContent = symbole;
     caseIndex.classList.add("coche");
 }
+
+//Nombres de cases Remplis
 function nombreCasesRemplies(){
     let compteur = 0;
     for(let i = 0; i<cases.length; i++){
@@ -42,7 +45,7 @@ function nombreCasesRemplies(){
     return compteur;
 }
 
-
+//Afficher le score de chaque joueur
 function afficherScore(){
     let scoreJoueur = document.querySelector('.you-score');
     let scoreCpu = document.querySelector('.cpu-score');
@@ -52,11 +55,14 @@ function afficherScore(){
 }
 
 
+const choixplayer = document.querySelector(".choix");
+
+// Gagner
 function quigagne(joueurATester) {
-    for(let i=0; i< combinaisonGagnates.length; i++){
-        let a=combinaisonGagnates[i][0];
-        let b=combinaisonGagnates[i][1];
-        let c=combinaisonGagnates[i][2];
+    for(let i=0; i< combinaisonGagnantes.length; i++){
+        let a=combinaisonGagnantes[i][0];
+        let b=combinaisonGagnantes[i][1];
+        let c=combinaisonGagnantes[i][2];
 
         if(
         cases[a].textContent === joueurATester.symbole &&
@@ -66,23 +72,29 @@ function quigagne(joueurATester) {
         cases[a].style.color= "green";
         cases[b].style.color= "green";
         cases[c].style.color= "green";
+        choixplayer.style.opacity=1;
+        choixplayer.style.visibility="visible";
         return true;
         }
     }
     return false;
 }
 
+//Fin de la Partie
 function finDePartie(gagnant) {
     partieTerminee = true;
     gagnant.score++;
     afficherScore();
 }
 
+//Match Nul
 function matchNul() {
     partieTerminee = true;
     afficherScore();
+    choixplayer.innerHTML = "Match Nul!!";
 }
 
+//Faire jouer le joueur
 function joueurCase(id){
     let caseCliquee = document.getElementById(id);
     let Touraffiche = document.getElementById("TourAffiche");
@@ -93,6 +105,7 @@ function joueurCase(id){
     remplirCase(caseCliquee, joueur.symbole);
     if(quigagne(joueur)) {
         finDePartie(joueur);
+        choixplayer.innerHTML="Félicitation!🥳\n"+joueur.nom+" gagne";
         return;
     }
     if(nombreCasesRemplies() === 9){
@@ -103,6 +116,7 @@ function joueurCase(id){
     joueurCpu();
 }
 
+//Faire jouer le cpu
 function joueurCpu(){
     let Touraffiche = document.getElementById("TourAffiche");
     Touraffiche.textContent= "X";
@@ -120,6 +134,7 @@ function joueurCpu(){
     remplirCase(caseChoisie, cpu.symbole);
     if(quigagne(cpu)) {
         finDePartie(cpu);
+        choixplayer.innerHTML="Perdu😫😂!\n"+cpu.nom+" gagne";
         return;
     }
     if(nombreCasesRemplies() === 9){
@@ -134,29 +149,45 @@ for(let i=0; i<cases.length; i++){
     });
 }
 
-const boutonX = document.querySelector('.x-btn');
-const boutonO = document.querySelector('.o-btn');
-boutonX.addEventListener("click", function(){
-    joueur.symbole ="X";
-    cpu.symbole ="O"
-});
-boutonO.addEventListener("click", function(){
-    joueur.symbole ="O";
-    cpu.symbole ="X"
-});
 
-function nouvellePartie1(){
+// Pour recommencer le jeu(Revanche)
+function Recommencer(){
     for(let i= 0; i<cases.length; i++){
         cases[i].textContent="";
         cases[i].classList.remove("coche");
         cases[i].style.color ="";
     }
+    choixplayer.style.opacity=0;
+    choixplayer.style.visibility="hidden";
     partieTerminee = false;
     auJoueurDeJouer = true;
 }
 
-const nouvellePartieBtn = document.getElementById("NouvellePartie");
+const recommencerBtn = document.getElementById("Recommencer");
 
-nouvellePartieBtn.addEventListener("click", function(){
-    nouvellePartie1();
+recommencerBtn.addEventListener("click", function(){
+    Recommencer();
+});
+
+//Choisir le symbole de chaque joueur
+const choixsymboleX = document.querySelector('.x-btn');
+const choixsymboleO = document.querySelector('.o-btn');
+
+function choixSymboleX(){
+    joueur.symbole= "X";
+    cpu.symbole= "O";
+    choixplayer.style.opacity=0;
+    choixplayer.style.visibility="hidden";
+}
+function choixSymboleY(){
+    joueur.symbole= "O";
+    cpu.symbole= "X";
+    choixplayer.style.opacity=0;
+    choixplayer.style.visibility="hidden";
+}
+choixsymboleX.addEventListener("click", function(){
+    choixSymboleX();
+});
+choixsymboleO.addEventListener("click", function(){
+    choixSymboleY();
 });
