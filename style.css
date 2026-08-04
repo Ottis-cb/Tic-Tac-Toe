@@ -29,7 +29,6 @@ body {
     border: 1px solid #dbeafe;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8),
     0 20px 50px rgba(59, 130, 246, 0.15);
-    /*min-height: 100vh;*/
 }
 .mode {
     padding: 10px 8px;
@@ -76,7 +75,7 @@ h2 {
     flex-direction: column;
     gap: 10%;
 }
-.choix {
+.choix , .symboleJoueur {
     width: 90%;
     z-index: 50;
     position: absolute;
@@ -92,6 +91,9 @@ h2 {
     animation: zoom 2.1s forwards;
     animation-delay: 1s;
     gap: 10px;
+}
+.symboleJoueur {
+    z-index: 10;
 }
 .choix #nomJoueur{
     height: 40px;
@@ -126,13 +128,13 @@ h2 {
         transform: translate(-50%, -50%);
     }
 }
-/*
-.choix .buttons1 {
+
+.symboleJoueur .buttons1 {
     display: flex;
     gap: 10%;
     margin-top: 15px;
 }
-.choix button {
+.symboleJoueur button {
     width: 145px;
     height: 65px;
     border-radius: 15px;
@@ -160,7 +162,7 @@ h2 {
     background: #f1f5f9;
     transform: translateY(-2px);
 }
-    */
+
 .tableau {
     display: grid;
     grid-template-columns: repeat(3, 100px);
@@ -283,7 +285,7 @@ h2 {
     border: 1px solid #334155;
     color: #f8fafc;
 }
-.dark .choix {
+.dark .choix , .dark .symboleJoueur{
     background: radial-gradient(circle at top, #1e3a8a,#020617);
         
 }

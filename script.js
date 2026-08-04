@@ -1,6 +1,6 @@
 //Joueurs
 let joueur = {
-    nom: "Ottis",
+    nom: "Player",
     symbole: "O",
     score: 0
 };
@@ -102,7 +102,7 @@ function matchNul() {
 //Faire jouer le joueur
 function joueurCase(id){
     let caseCliquee = document.getElementById(id);
-    Touraffiche.textContent= "C'est le tour du joueur " + cpu.symbole;
+    Touraffiche.textContent= "C'est le tour du " + cpu.nom;
     
     if(partieTerminee || !auJoueurDeJouer || caseCliquee.classList.contains("coche")){
         return;
@@ -110,7 +110,7 @@ function joueurCase(id){
     remplirCase(caseCliquee, joueur.symbole);
     if(quigagne(joueur)) {
         finDePartie(joueur);
-        choixplayer.innerHTML="Félicitation!🥳\n"+joueur.nom+" gagne";
+        choixplayer.innerHTML="Félicitation!🥳 <br>"+joueur.nom+" gagne";
         return;
     }
     if(nombreCasesRemplies() === 9){
@@ -124,7 +124,7 @@ function joueurCase(id){
 
 //Faire jouer le cpu
 function joueurCpu(){
-    Touraffiche.textContent= "C'est le tour du joueur " + joueur.symbole;
+    Touraffiche.textContent= "C'est le tour de  " + joueur.nom;
 
     let casesLibres = [];
     for(let i=0; i<cases.length; i++){
@@ -140,7 +140,7 @@ function joueurCpu(){
     remplirCase(caseChoisie, cpu.symbole);
     if(quigagne(cpu)) {
         finDePartie(cpu);
-        choixplayer.innerHTML="Perdu😫😂!\n"+cpu.nom+" gagne";
+        choixplayer.innerHTML="Perdu😫😂! <br> " +cpu.nom+" gagne";
         return;
     }
     if(nombreCasesRemplies() === 9){
@@ -202,30 +202,48 @@ const NouvellePartieBtn = document.getElementById("NouvellePartie");
 NouvellePartieBtn.addEventListener("click",function(){
 NouvellePartie();
 });
-/*
+
+//Pour donner le nom au joueur
+function nommerJoueur(){
+            const nomJ =document.getElementById('nomJoueur').value.trim();
+            if(nomJ == ""){
+                alert("Entrez votre nom.");
+                return;
+            }
+
+            joueur.nom = nomJ;
+            document.querySelector('.score-you p').textContent = joueur.nom;
+            choixplayer.style.opacity = 0;
+            choixplayer.style.visibility= "hidden";         
+        }
+
+        document.getElementById('continuer').addEventListener('click', function(){
+            nommerJoueur();
+});
+
+
 //Choisir le symbole de chaque joueur
-const choixsymboleX = document.querySelector('.x-btn');
-const choixsymboleO = document.querySelector('.o-btn');
+const SymboleJoueur = document.querySelector('.symboleJoueur');
 
 function choixSymboleX(){
     joueur.symbole= "X";
     cpu.symbole= "O";
-    choixplayer.style.opacity=0;
-    choixplayer.style.visibility="hidden";
+    SymboleJoueur.style.opacity=0;
+    SymboleJoueur.style.visibility="hidden";
 }
 function choixSymboleY(){
     joueur.symbole= "O";
     cpu.symbole= "X";
-    choixplayer.style.opacity=0;
-    choixplayer.style.visibility="hidden";
+    SymboleJoueur.style.opacity=0;
+    SymboleJoueur.style.visibility="hidden";
 }
-choixsymboleX.addEventListener("click", function(){
+document.querySelector('.x-btn').addEventListener("click", function(){
     choixSymboleX();
 });
-choixsymboleO.addEventListener("click", function(){
+document.querySelector('.o-btn').addEventListener("click", function(){
     choixSymboleY();
 });
-*/
+
 
 //Pour le mode claie et sombre
 const mode =document.querySelector(".mode");
@@ -238,25 +256,7 @@ mode.addEventListener("click", function(){
     }
 });
 
-        function nommerJoueur(){
-            const nomJ =document.getElementById('nomJoueur').trim();
-            if(nomJ == ""){
-                alert("Entrez votre nom.");
-                return;
-            }
-
-            joueur.nom = nomJ;
-            document.querySelector('.score-you p').textContent = joueur.nom;
-
-            choixplayer.style.opacity= 0 ;
-            choixplayer.syle.visibility= "hidden";
-
-            
-        }
-
-        document.getElementById('continuer').addEventListener('click', function(){
-            nommerJoueur();
-        });
+        
         
         
 
