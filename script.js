@@ -99,13 +99,11 @@ function matchNul() {
     choixplayer.innerHTML = "Match Nul!!";
 }
     let Touraffiche = document.getElementById("TourAffiche");
-    let msgsymbole = document.getElementById("Msgsymbole");
 //Faire jouer le joueur
 function joueurCase(id){
     let caseCliquee = document.getElementById(id);
-    Touraffiche.textContent= "C'est le tour du joueur ";
-    msgsymbole.style.color="#ef4444";
-    msgsymbole.textContent = cpu.symbole;
+    Touraffiche.textContent= "C'est le tour du joueur " + cpu.symbole;
+    
     if(partieTerminee || !auJoueurDeJouer || caseCliquee.classList.contains("coche")){
         return;
     }
@@ -126,9 +124,7 @@ function joueurCase(id){
 
 //Faire jouer le cpu
 function joueurCpu(){
-    Touraffiche.textContent= "C'est le tour du joueur ";
-    msgsymbole.style.color="#2563eb";
-    msgsymbole.textContent = joueur.symbole;
+    Touraffiche.textContent= "C'est le tour du joueur " + joueur.symbole;
 
     let casesLibres = [];
     for(let i=0; i<cases.length; i++){
@@ -206,7 +202,7 @@ const NouvellePartieBtn = document.getElementById("NouvellePartie");
 NouvellePartieBtn.addEventListener("click",function(){
 NouvellePartie();
 });
-
+/*
 //Choisir le symbole de chaque joueur
 const choixsymboleX = document.querySelector('.x-btn');
 const choixsymboleO = document.querySelector('.o-btn');
@@ -229,6 +225,7 @@ choixsymboleX.addEventListener("click", function(){
 choixsymboleO.addEventListener("click", function(){
     choixSymboleY();
 });
+*/
 
 //Pour le mode claie et sombre
 const mode =document.querySelector(".mode");
@@ -240,3 +237,26 @@ mode.addEventListener("click", function(){
         mode.textContent="🌙";
     }
 });
+
+        function nommerJoueur(){
+            const nomJ =document.getElementById('nomJoueur').trim();
+            if(nomJ == ""){
+                alert("Entrez votre nom.");
+                return;
+            }
+
+            joueur.nom = nomJ;
+            document.querySelector('.score-you p').textContent = joueur.nom;
+
+            choixplayer.style.opacity= 0 ;
+            choixplayer.syle.visibility= "hidden";
+
+            
+        }
+
+        document.getElementById('continuer').addEventListener('click', function(){
+            nommerJoueur();
+        });
+        
+        
+
