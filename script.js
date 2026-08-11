@@ -79,6 +79,7 @@ function quigagne(joueurATester) {
         cases[c].classList.add("winner");
         choixplayer.style.opacity=1;
         choixplayer.style.visibility="visible";
+        
         return true;
         }
     }
@@ -214,7 +215,8 @@ function nommerJoueur(){
             joueur.nom = nomJ;
             document.querySelector('.score-you p').textContent = joueur.nom;
             choixplayer.style.opacity = 0;
-            choixplayer.style.visibility= "hidden";         
+            choixplayer.style.visibility= "hidden";     
+            SymboleJoueur.style.opacity=1;    
         }
 
         document.getElementById('continuer').addEventListener('click', function(){
