@@ -111,7 +111,7 @@ function joueurCase(id){
     remplirCase(caseCliquee, joueur.symbole);
     if(quigagne(joueur)) {
         finDePartie(joueur);
-        choixplayer.innerHTML="Félicitation!🥳 <br>"+joueur.nom+" gagne";
+        choixplayer.innerHTML= ' <h3>Félicitation!</h3> <img class="trophée" src="/trophy-winner-prize-svgrepo-com.svg" alt =""></img><br>'+ joueur.nom + ' gagne';
         return;
     }
     if(nombreCasesRemplies() === 9){
@@ -141,7 +141,7 @@ function joueurCpu(){
     remplirCase(caseChoisie, cpu.symbole);
     if(quigagne(cpu)) {
         finDePartie(cpu);
-        choixplayer.innerHTML="Perdu😫😂! <br> " +cpu.nom+" gagne";
+        choixplayer.innerHTML='<h3>Perdu!</h3><img class="trophée" src="bad-svgrepo-com.svg" alt =""></img>' + cpu.nom + 'gagne';
         return;
     }
     if(nombreCasesRemplies() === 9){
