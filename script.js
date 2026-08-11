@@ -252,9 +252,9 @@ const mode =document.querySelector(".mode");
 mode.addEventListener("click", function(){
     document.body.classList.toggle('dark');
     if(document.body.classList.contains("dark")){
-        mode.textContent="🌞";
+        mode.innerHTML='<img class="modes" src="dark-svgrepo-com.svg" alt =""></img>';
     }else{
-        mode.textContent="🌙";
+        mode.innerHTML='<img class="modes" src="moon-svgrepo-com.svg" alt =""></img>';
     }
 });
 

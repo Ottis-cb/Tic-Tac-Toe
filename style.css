@@ -332,4 +332,9 @@ h2 {
     box-shadow: 0 0 20px rgba(59, 130, 246, 0.5);
 }
 
+.modes {
+    width: 30px;
+    height: 30px;
+}
+
 
