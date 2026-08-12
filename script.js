@@ -189,10 +189,8 @@ function trouverMeilleurCoup(){
 
             if(score > meilleurScore){
                 meilleurScore = score;
-                meilleurCoup = 1;
+                meilleurCoup = i;
             }
-
-
         }
     }
     return meilleurCoup;
@@ -200,6 +198,9 @@ function trouverMeilleurCoup(){
 
 
 function minimax(cpuTour){
+    if(verifierVictoire(cpu.symbole)){
+        return 10;
+    }
 
     if(verifierVictoire(joueur.symbole)){
         return -10;
@@ -215,11 +216,9 @@ function minimax(cpuTour){
         for(let i= 0; i<cases.length; i++){
             if(!cases[i].classList.contains("coche")){
                 cases[i].textContent = cpu.symbole;
+                cases[i].classList.add("coche");
 
-                let score = minimax(false);
-
-                cases[i].textContent ="";
-                meilleurScore =Math.max(meilleurScore,score);
+                meilleurScore = Math.max(meilleurScore, score);
             }
         }
         return meilleurScore;
@@ -230,12 +229,15 @@ function minimax(cpuTour){
         let meilleurScore = Infinity;
         for(let i=0; i<cases.length; i++){
             if(!cases[i].classList.contains('coche')){
+
                 cases[i].textContent = joueur.symbole;
+                cases[i].classList.add('coche');
+
                 let score = minimax(true);
 
                 cases[i].textContent = "";
 
-                meilleurScore = Math.min(meilleurScore,score);
+                meilleurScore = Math.min(meilleurScore, score);
             }
         }
         return meilleurScore;
