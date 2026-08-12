@@ -73,7 +73,8 @@ function quigagne(joueurATester) {
         cases[a].textContent === joueurATester.symbole &&
         cases[b].textContent === joueurATester.symbole &&
         cases[c].textContent === joueurATester.symbole
-    ){
+        )
+        {
         cases[a].classList.add("winner");
         cases[b].classList.add("winner");
         cases[c].classList.add("winner");
@@ -127,6 +128,28 @@ function joueurCase(id){
 function joueurCpu(){
     Touraffiche.textContent= "C'est le tour de  " + joueur.nom;
 
+    let meilleurCoup = trouverMeilleurCoup();
+
+    let caseChoisie =cases[meilleurCoup];
+
+    remplirCase(caseChoisie, cpu.symbole);
+
+    if(quigagne(cpu)){
+        finDePartie(cpu);
+
+        choixplayer.innerHTML='<h3>Perdu!</h3><img class="trophée" src="bad-svgrepo-com.svg" alt =""></img>' + cpu.nom + 'gagne';
+        return;
+        
+    }
+
+    if(nombreCasesRemplies() === 9){
+        matchNul();
+        return;
+    }
+
+    auJoueurDeJouer = true;
+    Touraffiche.textContent = "C'est le tour de " + joueur.nom;
+/*
     let casesLibres = [];
     for(let i=0; i<cases.length; i++){
         if(!cases[i].classList.contains("coche")){
@@ -148,8 +171,95 @@ function joueurCpu(){
         matchNul();
         return;
     }
-    auJoueurDeJouer = true;
+    auJoueurDeJouer = true;*/
 }
+
+function trouverMeilleurCoup(){
+
+    let meilleurScore = -Infinity;
+    let meilleurCoup;
+
+    for(let i =0; i< cases.length; i++){
+        if(! cases[i].classList.contains('coche')){
+            cases[i].textContent = cpu.symbole;
+
+            let score = minimax(false);
+
+            cases[i].textContent = "";
+
+            if(score > meilleurScore){
+                meilleurScore = score;
+                meilleurCoup = 1;
+            }
+
+
+        }
+    }
+    return meilleurCoup;
+}
+
+
+function minimax(cpuTour){
+
+    if(verifierVictoire(joueur.symbole)){
+        return -10;
+    }
+
+    if(nombreCasesRemplies() === 9){
+        return 0;
+    }
+
+    if (cpuTour){
+        let meilleurScore = -Infinity;
+
+        for(let i= 0; i<cases.length; i++){
+            if(!cases[i].classList.contains("coche")){
+                cases[i].textContent = cpu.symbole;
+
+                let score = minimax(false);
+
+                cases[i].textContent ="";
+                meilleurScore =Math.max(meilleurScore,score);
+            }
+        }
+        return meilleurScore;
+    }
+
+
+    else{
+        let meilleurScore = Infinity;
+        for(let i=0; i<cases.length; i++){
+            if(!cases[i].classList.contains('coche')){
+                cases[i].textContent = joueur.symbole;
+                let score = minimax(true);
+
+                cases[i].textContent = "";
+
+                meilleurScore = Math.min(meilleurScore,score);
+            }
+        }
+        return meilleurScore;
+    }
+}
+
+
+function verifierVictoire(symbole){
+    for(let i =0; i<combinaisonGagnantes.length; i++){
+        let a = combinaisonGagnantes[i][0];
+        let b = combinaisonGagnantes[i][1];
+        let c = combinaisonGagnantes[i][2];
+
+        if(cases[a].textContent === symbole &&
+            cases[b].textContent === symbole &&
+            cases[c].textContent === symbole
+        ){
+            return true;
+        }
+    }
+    return false;
+}
+
+
 for(let i=0; i<cases.length; i++){
     cases[i].addEventListener("click", function(){
         joueurCase(cases[i].id);
@@ -252,7 +362,7 @@ const mode =document.querySelector(".mode");
 mode.addEventListener("click", function(){
     document.body.classList.toggle('dark');
     if(document.body.classList.contains("dark")){
-        mode.innerHTML='<img class="modes" src="dark-svgrepo-com.svg" alt =""></img>';
+        mode.innerHTML='<img class="modes" src="light-svgrepo-com.svg" alt =""></img>';
     }else{
         mode.innerHTML='<img class="modes" src="moon-svgrepo-com.svg" alt =""></img>';
     }

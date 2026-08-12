@@ -334,7 +334,8 @@ h2 {
 
 .modes {
     width: 30px;
-    height: 30px;
+    height: 20px;
+    overflow: hidden;
 }
 
 
