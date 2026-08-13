@@ -172,94 +172,195 @@ function joueurCpu(){
         return;
     }
     auJoueurDeJouer = true;*/
+
+    // Faire jouer le CPU
+function joueurCpu(){
+
+    if(partieTerminee){
+        return;
+    }
+
+    Touraffiche.textContent = "Le CPU réfléchit...";
+
+    let meilleurCoup = trouverMeilleurCoup();
+
+    let caseChoisie = cases[meilleurCoup];
+
+    remplirCase(caseChoisie, cpu.symbole);
+
+    if(quigagne(cpu)){
+
+        finDePartie(cpu);
+
+        choixplayer.innerHTML =
+            '<h3>Perdu!</h3>' +
+            '<img class="trophée" src="bad-svgrepo-com.svg" alt="">' +
+            '<br>' +
+            cpu.nom +
+            ' gagne';
+
+        return;
+    }
+
+    if(nombreCasesRemplies() === 9){
+
+        matchNul();
+
+        return;
+    }
+
+    auJoueurDeJouer = true;
+
+    Touraffiche.textContent =
+        "C'est le tour de " + joueur.nom;
 }
 
+
+// Trouver le meilleur coup
 function trouverMeilleurCoup(){
 
     let meilleurScore = -Infinity;
     let meilleurCoup;
 
-    for(let i =0; i< cases.length; i++){
-        if(! cases[i].classList.contains('coche')){
-            cases[i].textContent = cpu.symbole;
+    for(let i = 0; i < cases.length; i++){
 
+        // Vérifier si la case est libre
+        if(!cases[i].classList.contains("coche")){
+
+            // Le CPU essaie temporairement cette case
+            cases[i].textContent = cpu.symbole;
+            cases[i].classList.add("coche");
+
+            // Calculer le résultat de ce coup
             let score = minimax(false);
 
+            // Annuler la simulation
             cases[i].textContent = "";
+            cases[i].classList.remove("coche");
 
+            // Garder le meilleur coup
             if(score > meilleurScore){
+
                 meilleurScore = score;
                 meilleurCoup = i;
             }
         }
     }
+
     return meilleurCoup;
 }
 
 
+// Intelligence du CPU
 function minimax(cpuTour){
+
+    // Le CPU gagne
     if(verifierVictoire(cpu.symbole)){
         return 10;
     }
 
+    // Le joueur gagne
     if(verifierVictoire(joueur.symbole)){
         return -10;
     }
 
+    // Match nul
     if(nombreCasesRemplies() === 9){
         return 0;
     }
 
-    if (cpuTour){
+
+    // =========================
+    // TOUR DU CPU
+    // =========================
+
+    if(cpuTour){
+
         let meilleurScore = -Infinity;
 
-        for(let i= 0; i<cases.length; i++){
+        for(let i = 0; i < cases.length; i++){
+
             if(!cases[i].classList.contains("coche")){
+
+                // Simulation du coup du CPU
                 cases[i].textContent = cpu.symbole;
                 cases[i].classList.add("coche");
 
-                meilleurScore = Math.max(meilleurScore, score);
+                let score = minimax(false);
+
+                // Annuler la simulation
+                cases[i].textContent = "";
+                cases[i].classList.remove("coche");
+
+                meilleurScore = Math.max(
+                    meilleurScore,
+                    score
+                );
             }
         }
+
         return meilleurScore;
     }
 
 
-    else{
-        let meilleurScore = Infinity;
-        for(let i=0; i<cases.length; i++){
-            if(!cases[i].classList.contains('coche')){
+    // =========================
+    // TOUR DU JOUEUR
+    // =========================
 
+    else{
+
+        let meilleurScore = Infinity;
+
+        for(let i = 0; i < cases.length; i++){
+
+            if(!cases[i].classList.contains("coche")){
+
+                // Simulation du coup du joueur
                 cases[i].textContent = joueur.symbole;
-                cases[i].classList.add('coche');
+                cases[i].classList.add("coche");
 
                 let score = minimax(true);
 
+                // Annuler la simulation
                 cases[i].textContent = "";
+                cases[i].classList.remove("coche");
 
-                meilleurScore = Math.min(meilleurScore, score);
+                meilleurScore = Math.min(
+                    meilleurScore,
+                    score
+                );
             }
         }
+
         return meilleurScore;
     }
 }
 
 
+// Vérifier une victoire
 function verifierVictoire(symbole){
-    for(let i =0; i<combinaisonGagnantes.length; i++){
+
+    for(let i = 0; i < combinaisonGagnantes.length; i++){
+
         let a = combinaisonGagnantes[i][0];
         let b = combinaisonGagnantes[i][1];
         let c = combinaisonGagnantes[i][2];
 
-        if(cases[a].textContent === symbole &&
+        if(
+            cases[a].textContent === symbole &&
             cases[b].textContent === symbole &&
             cases[c].textContent === symbole
         ){
+
             return true;
         }
     }
+
     return false;
 }
+}
+
+
 
 
 for(let i=0; i<cases.length; i++){
